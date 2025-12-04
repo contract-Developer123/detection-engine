@@ -1,0 +1,130 @@
+{
+  "languages": {
+    "java": {
+      "extensions": [".java"],
+      "buildFiles": ["pom.xml", "build.gradle", "build.gradle.kts"],
+      "sbomIdentifiers": ["pkg:maven/*"]
+    },
+    "python": {
+      "extensions": [".py"],
+      "buildFiles": ["requirements.txt", "pyproject.toml", "Pipfile"],
+      "sbomIdentifiers": ["pkg:pypi/*"]
+    },
+    "javascript": {
+      "extensions": [".js", ".jsx"],
+      "buildFiles": ["package.json"],
+      "sbomIdentifiers": ["pkg:npm/*"]
+    },
+    "typescript": {
+      "extensions": [".ts", ".tsx"],
+      "buildFiles": ["package.json", "tsconfig.json"],
+      "sbomIdentifiers": ["pkg:npm/*"]
+    },
+    "go": {
+      "extensions": [".go"],
+      "buildFiles": ["go.mod"],
+      "sbomIdentifiers": ["pkg:golang/*"]
+    },
+    "csharp": {
+      "extensions": [".cs"],
+      "buildFiles": ["*.csproj", "*.sln"],
+      "sbomIdentifiers": ["pkg:nuget/*"]
+    }
+  },
+
+  "frameworks": {
+    "spring_framework": {
+      "indicators": ["org.springframework", "spring-boot-starter"],
+      "sbomIdentifiers": ["pkg:maven/org.springframework*"],
+      "classPatterns": ["@SpringBootApplication"]
+    },
+    "django": {
+      "indicators": ["django"],
+      "extensions": ["manage.py"],
+      "sbomIdentifiers": ["pkg:pypi/django"]
+    },
+    "flask": {
+      "indicators": ["flask"],
+      "sbomIdentifiers": ["pkg:pypi/flask"]
+    },
+    "react": {
+      "indicators": ["react", "react-dom"],
+      "sbomIdentifiers": ["pkg:npm/react*"]
+    },
+    "angular": {
+      "indicators": ["@angular/core"],
+      "sbomIdentifiers": ["pkg:npm/@angular*"]
+    }
+  },
+
+  "runtimes": {
+    "jdk": {
+      "fileIndicators": ["pom.xml", "build.gradle"],
+      "extractFrom": ["<maven-compiler-plugin>", "source", "target"]
+    },
+    "python_runtime": {
+      "fileIndicators": ["pyproject.toml", "runtime.txt"],
+      "extractFrom": ["python_version", "requires-python"]
+    },
+    "node_runtime": {
+      "fileIndicators": ["package.json", ".nvmrc", ".node-version"]
+    }
+  },
+
+  "cloud_sdks": {
+    "aws": {
+      "indicators": ["aws-sdk", "boto3", "aws-java-sdk"],
+      "sbomIdentifiers": ["pkg:maven/com.amazonaws*", "pkg:pypi/boto3"]
+    },
+    "gcp": {
+      "indicators": ["google-cloud", "@google-cloud"],
+      "sbomIdentifiers": ["pkg:maven/com.google.cloud*"]
+    },
+    "azure": {
+      "indicators": ["azure-storage", "azure-core"],
+      "sbomIdentifiers": ["pkg:maven/com.azure*"]
+    }
+  },
+
+  "databases": {
+    "postgresql": {
+      "sbomIdentifiers": ["pkg:maven/org.postgresql*"],
+      "indicators": ["postgresql://", "jdbc:postgresql", "org.postgresql"]
+    },
+    "mysql": {
+      "sbomIdentifiers": ["pkg:maven/mysql*"],
+      "indicators": ["mysql://", "jdbc:mysql", "com.mysql"]
+    },
+    "mongodb": {
+      "sbomIdentifiers": ["pkg:npm/mongodb*", "pkg:pypi/pymongo"],
+      "indicators": ["mongodb://", "org.mongodb", "spring.data.mongodb"]
+    },
+    "redis": {
+      "sbomIdentifiers": ["pkg:pypi/redis", "pkg:maven/redis.clients"],
+      "indicators": ["redis://", "redis.clients"]
+    }
+  },
+
+  "containers": {
+    "docker": {
+      "fileIndicators": ["Dockerfile", ".dockerignore"],
+      "sbomIdentifiers": ["pkg:docker/*"]
+    },
+    "kubernetes": {
+      "extensions": [".yaml", ".yml"],
+      "contains": ["kind: Deployment", "apiVersion: v1", "kind: Service"]
+    }
+  },
+
+  "infrastructure_as_code": {
+    "terraform": {
+      "extensions": [".tf", ".tfvars"],
+      "sbomIdentifiers": ["pkg:terraform/*"],
+      "indicators": ["terraform {", "provider \""]
+    },
+    "cloudformation": {
+      "extensions": [".yaml", ".yml"],
+      "indicators": ["AWSTemplateFormatVersion", "Resources:"]
+    }
+  }
+}
