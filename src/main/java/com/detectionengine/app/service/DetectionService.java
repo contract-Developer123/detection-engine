@@ -36,7 +36,7 @@ public class DetectionService {
 
             // Collect all files first to avoid stream issues
             List<Path> filesToScan;
-            try (Stream<Path> files = Files.walk(Paths.get(projectRoot), 3) // Limit depth to 3 levels
+            try (Stream<Path> files = Files.walk(Paths.get(projectRoot), 6) // Increase depth to 6 levels
                 .filter(Files::isRegularFile)
                 .filter(path -> !isIgnoredPath(path))) { // Skip node_modules, target, etc.
 
@@ -44,6 +44,14 @@ public class DetectionService {
             } catch (IOException e) {
                 throw new RuntimeException("Failed to scan project", e);
             }
+
+            // Debug: Print detected project type and file count
+            System.out.println("[DEBUG] Detected project type: " + detectedProjectType.get());
+            System.out.println("[DEBUG] Total files to scan: " + filesToScan.size());
+            System.out.println("[DEBUG] Looking for pom.xml...");
+            filesToScan.stream()
+                .filter(p -> p.toString().endsWith("pom.xml"))
+                .forEach(p -> System.out.println("[DEBUG] Found pom.xml at: " + p));
 
             // Process files
             filesToScan.forEach(path -> applyRules(path, registry, result));

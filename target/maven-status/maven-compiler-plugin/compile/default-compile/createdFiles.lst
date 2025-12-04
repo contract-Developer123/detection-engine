@@ -1,0 +1,6 @@
+com\detectionengine\app\service\DetectionService.class
+com\detectionengine\app\controller\DetectController.class
+com\detectionengine\app\controller\HealthController.class
+com\detectionengine\app\model\DetectionResult.class
+com\detectionengine\app\DetectionEngineApplication.class
+com\detectionengine\app\loader\RegistryLoader.class
